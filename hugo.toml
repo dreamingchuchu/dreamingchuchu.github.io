@@ -4,7 +4,7 @@ title = 'My New Hugo Site'
 theme = 'hugo-brewm-main'
 
 [params.giscus]
-  repo = "dreamingchuchu/my-hugo-blog"
+  repo = "dreamingchuchu/dreamingchuchu.github.io"
   repoId = "R_kgDOQddrMw"
   categoryId = "DIC_kwDOQddrM84CzESd"
   mapping = "pathname" 
