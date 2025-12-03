@@ -1,0 +1,48 @@
+/* 
+    Do not replace with "Crimson Text" in Google fonts (2018), let alone "Crimson Pro".
+    This is the 2012 version with slightly different optical metrics.
+*/
+
+@font-face {
+    font-family: 'crimson';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: local('Crimson Roman'),
+         url(https://fonts.gstatic.com/s/amiri/v30/J7aRnpd8CGxBHpUutLM.woff2) format('woff2');
+    size-adjust: 95%;
+}
+
+@font-face {
+    font-family: 'crimson';
+    font-style: italic;
+    font-weight: 400;
+    font-display: swap;
+    src: local('Crimson Italic'),
+         url(https://fonts.gstatic.com/s/amiri/v30/J7afnpd8CGxBHpUrhLEY6w.woff2) format('woff2');
+    size-adjust: 95%;
+}
+
+@font-face {
+    font-family: 'crimson';
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src: local('Crimson Bold'),
+         url(https://fonts.gstatic.com/s/amiri/v30/J7acnpd8CGxBHp2VkaY_zp4.woff2) format('woff2');
+    size-adjust: 95%;
+}
+
+@font-face {
+    font-family: 'crimson';
+    font-style: italic;
+    font-weight: 700;
+    font-display: swap;
+    src: local('Crimson BoldItalic'),
+         url(https://fonts.gstatic.com/s/amiri/v30/J7aanpd8CGxBHpUrjAo9_pxqHw.woff2) format('woff2');
+    size-adjust: 95%;
+}
+
+:root {
+    --rm: 'crimson';
+}

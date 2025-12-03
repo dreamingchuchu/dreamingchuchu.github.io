@@ -1,0 +1,18 @@
+{{ define "main" }}
+<div class="posts-listing-override" style="max-width: 800px; margin: 0 auto; padding: 20px;">
+    <h1 style="border-bottom: 2px solid #ddd; padding-bottom: 10px;">{{ .Title }}</h1>
+
+    <ul style="list-style: none; padding: 0;">
+    {{- range .Paginator.Pages }}
+        <li style="margin-bottom: 15px;">
+            <a href="{{ .Permalink }}" style="display: block; font-size: 1.5em; color: #0056b3; text-decoration: none;">
+                {{ .Title }}
+            </a>
+            <span style="font-size: 0.9em; color: #6c757d;">发布于 {{ .Date.Format "2006-01-02" }}</span>
+        </li>
+    {{- end }}
+    </ul>
+    
+    {{- partial "paginator.html" . }}
+</div>
+{{ end }}

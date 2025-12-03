@@ -1,0 +1,24 @@
+{{ define "main" }}
+<main style="padding: 20px;">
+    <header>
+        <h1>{{ .Title }}</h1>
+        {{ with .Content }}
+            <div class="archive-description">{{ . }}</div>
+        {{ end }}
+    </header>
+
+    <section class="posts-list">
+        <ul style="list-style-type: none; padding: 0;">
+        {{- range .Pages }}
+            <li style="margin-bottom: 10px;">
+                <a href="{{ .Permalink }}" style="font-size: 1.2em; text-decoration: none; color: #007bff;">
+                    {{ .Title }}
+                </a>
+            </li>
+        {{- end }}
+        </ul>
+    </section>
+    
+    {{- template "_internal/pagination.html" . }}
+</main>
+{{ end }}

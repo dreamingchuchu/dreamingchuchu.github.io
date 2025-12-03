@@ -1,0 +1,25 @@
+{{- define "card" -}}
+    {{- $page := .page }}
+
+    <article class="post-card">
+        <header>
+            <h2>
+                <a href="{{ $page.Permalink }}" title="{{ $page.Title }}" style="font-size: 1.2em; text-decoration: none; color: #007bff;">
+                    {{ $page.Title }}
+                </a>
+            </h2>
+            <div class="post-meta" style="font-size: 0.9em; color: #6c757d;">
+                {{ .PublishDate | time.Format ":date_long" }}
+                {{- if .authors }} 
+                    {{ partial "terms.html" (dict "taxonomy" "author" "type" "delimiter" "tabindex" "-1" "page" $page) }} 
+                {{- else }} 
+                    {{- with .author }}{{ . }}{{ end }} 
+                {{- end }}
+            </div>
+        </header>
+
+        <footer style="font-size: 0.8em; color: #aaa; margin-top: 5px;">
+            {{- printf "%d %s" $page.ReadingTime (i18n "readingTime" $page.ReadingTime | lower ) }}
+        </footer>
+    </article>
+{{- end -}}
