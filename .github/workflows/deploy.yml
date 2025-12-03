@@ -1,31 +1,57 @@
 name: Deploy Hugo Site to GitHub Pages
 
+# 1. 触发条件
 on:
   push:
-    branches:
-      - main # 当代码推送到 main 分支时触发部署
+    branches: ["main"]
+  # 允许通过 Actions 页面手动触发工作流
+  workflow_dispatch:
 
+# 2. **关键修复：权限设置**
+# 必须为 pages 和 id-token 设置 write 权限，才能使用 actions/deploy-pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# 3. 定义部署作业
 jobs:
+  # 构建和部署作业
   deploy:
+    # 确保在最新版本的 Ubuntu 运行
     runs-on: ubuntu-latest
+    
+    # 确保环境是 GitHub Pages
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
     steps:
+      # 步骤 1: 检出仓库代码
       - name: Checkout Repository
         uses: actions/checkout@v4
         with:
-          submodules: true  # 确保拉取主题文件
-          fetch-depth: 0    # 确保完整历史记录
+          submodules: true # 检出子模块 (例如您的主题)
+          fetch-depth: 0   # 获取所有历史记录，以便正确构建
 
+      # 步骤 2: 设置 Hugo 环境
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v3
         with:
           hugo-version: 'latest'
-          extended: true # 使用 Extended 版本
+          # extended: true # 如果您使用的是 Hugo Extended 版本，请取消注释
 
-      - name: Build Site
+      # 步骤 3: 构建 Hugo 静态网站
+      - name: Build Hugo Site
         run: hugo --minify
 
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v4
+      # 步骤 4: 上传构建产物 (public 目录) - 替换旧的 action
+      - name: Upload Artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./public # Hugo 生成的静态文件目录
+          path: ./public # 部署 hugo 构建的 public 目录
+
+      # 步骤 5: 部署到 GitHub Pages - 替换旧的 action
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
